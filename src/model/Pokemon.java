@@ -65,4 +65,8 @@ public class Pokemon{
         this.nombre = nombre;
     }
 
+    public String toString(){
+        return "Nombre: " + nombre + "\nEspecie: " + especie + "\nPuntos de Salud: " + puntosSalud + "\nPuntos de Ataque: " + puntosAtaque + "\nPuntos de Poder: " + puntosPoder + "\nPuntos de Defensa: " + puntosDefensa; 
+    }
+
 }

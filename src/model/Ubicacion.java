@@ -25,4 +25,8 @@ public class Ubicacion{
     public void setLatitud(){
         this.latitud = latitud;
     }
+
+    public String toString(){
+        return longitud.toString() + "\n" + latitud.toString();
+    }
 }

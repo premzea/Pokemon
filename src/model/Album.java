@@ -45,4 +45,17 @@ public class Album {
             }
         }
     }
+
+    public String toString(){
+        String salida = "Mapa: " + mapa.toString() + "\nRegion: region*" + "\n";
+        for(int i = 0; i< pokemones.size(); i++){
+            salida = salida + pokemones.get(i).toString();
+        }
+        return salida;
+    }
+
+    public void addPokemon(Tipo especie, int puntosSalud,int puntosAtaque, int puntosPoder, int puntosDefensa, String nombre){
+        Pokemon pokemon = new Pokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
+        pokemones.add(pokemon);
+    }
 }
