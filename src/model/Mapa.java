@@ -3,6 +3,8 @@ import java.util.Date;
 
 public class Mapa{
 
+
+
     private int numPokemones;
     private Ubicacion ubicacion;
     private String dirImagen;

@@ -2,29 +2,22 @@ package model;
 
 public class Pokemon{
 
-    private Tipo tipo;
+    private Tipo especie;
     private int puntosSalud;
     private int puntosAtaque;
-    private String especie;
     private String nombre;
     private int puntosPoder;
     private int puntosDefensa;
 
-    public Pokemon(Tipo tipo, int puntosSalud,int puntosAtaque, int puntosPoder, int puntosDefensa, String nombre, String especie){
-        this.tipo = tipo;
+    public Pokemon(Tipo especie, int puntosSalud,int puntosAtaque, int puntosPoder, int puntosDefensa, String nombre){
+        this.especie = especie;
         this.puntosSalud = puntosSalud;
         this.puntosAtaque = puntosAtaque;
         this.puntosPoder = puntosPoder;
         this.puntosDefensa = puntosDefensa;
         this.nombre = nombre;
-        this.especie = especie;
     }
 
-    public Tipo getTipo(){
-        return tipo;
-    }
-
-    
     public int getPuntosSalud(){
         return puntosSalud;
     }
@@ -45,12 +38,10 @@ public class Pokemon{
         return nombre;
     }
 
-    public String getEspecie(){
-        return especie;
-    }
 
-    public void setTipo(Tipo tipo){
-        this.tipo =tipo;
+
+    public void setEspecie(Tipo tipo){
+        this.especie =tipo;
     }
 
     
@@ -74,7 +65,4 @@ public class Pokemon{
         this.nombre = nombre;
     }
 
-    public void setEspecie(String especie){
-        this.especie = especie;
-    }
 }
