@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Album {
     private Mapa mapa;
     private EnumRegion nomRegion;
+    private int numPokemones;
     private ArrayList<Pokemon> pokemones = new ArrayList<>();
 
     public Album(Mapa mapa, EnumRegion nomRegion, ArrayList <Pokemon> pokemones) {
@@ -13,8 +14,13 @@ public class Album {
         this.pokemones = pokemones ;
     }
 
-    public ArrayList <Pokemon> getNumPokemones() {
-        return pokemones;
+    public Album( EnumRegion nomRegion, int numPokemones) {
+        this.nomRegion = nomRegion;
+        this.numPokemones = numPokemones;
+    }
+
+    public int getNumPokemones() {
+        return numPokemones;
     }
 
     public EnumRegion getnomRegion() {
@@ -25,8 +31,16 @@ public class Album {
         return mapa;
     }
 
-    public void setNumPokemones(ArrayList <Pokemon> pokemones) {
+    public ArrayList <Pokemon> getPokemones(){
+        return pokemones;
+    }
+
+    public void setPokemones(ArrayList <Pokemon> pokemones) {
         this.pokemones = pokemones;
+    }
+
+    public void setNumPokemones(int numPokemones) {
+        this.numPokemones = numPokemones;
     }
 
     public void setNomRegion(EnumRegion nomRegion) {

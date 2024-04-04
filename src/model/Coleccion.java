@@ -1,5 +1,5 @@
 package model;
-//Todo agregar album, cheker de si ya ocho albumes
+//Todo agregar album, enum problema tipo todavia no entender. 
 
 
 public class Coleccion{
@@ -34,6 +34,25 @@ public class Coleccion{
 
     public Album[] getAlbumes() {
         return albumes;
+    }
+
+    public boolean hasAlbums(){
+        boolean value = false;
+        if (albumes[9] != null){
+            return true;
+        }
+        return value;
+    }
+
+    public void addAlbum(EnumRegion nombre, int numPokemones){
+        Album album = new Album(nombre, numPokemones);
+        // aqui el enum como se lo voy a pasar?
+        for(int i = 0; i < 8; i++){
+            if (albumes[i] == null){
+                album[i] = album;
+                i = 10;
+            }
+        } 
     }
 
     public void setAlbumes(Album[] albumes) {

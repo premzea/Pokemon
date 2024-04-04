@@ -1,13 +1,13 @@
 package ui;
 
 import java.util.Scanner;
-import model.Coleccion;
+import model.Collector;
 
 
 
 
 public class PokeCollector {
-	private Coleccion myCollection;
+	private Collector collector;
 	private Scanner sc; 
 	
 	
@@ -64,7 +64,7 @@ public class PokeCollector {
 			showMenuAlbum() ;
 			break;
 		case 3:
-			System.out.println(myCollection.showAlbum());
+			System.out.println(collector.coleccion.showAlbum());
 			break;
 	
 		case 4:
@@ -100,11 +100,7 @@ public class PokeCollector {
 		year= sc.nextInt();
 		sc.nextLine();
 
-
-		//myCollection = new Coleccion(nom, new Date(day, month, year));
-		
-
-		myCollection = new Coleccion(nom, day, month, year);
+		collector.addColeccion(nom, day, month, year);
 
 		System.out.println("La Colección de "+ nom + " fue creada");
 		
@@ -129,6 +125,8 @@ public class PokeCollector {
 		System.out.println("Puntos de Poder: ");
 		int puntosPoder = sc.nextInt();
 
+		collector.addPokemon(nom, especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nom);
+		// enum problem
 		
 		
 	}
@@ -160,14 +158,48 @@ public class PokeCollector {
 		
 	}
 	private void deleteAlbum() {
-		//** */
+		System.out.println("Nombre de Region: ");
+		String nomRegion = sc.nextLine();
+		collector.deleteAlbum(nomRegion);
+		// enum type problem
 	}
+
 	private void editAlbum() {
-		//* */
+		int numPokemones;
+		// okay no puedo reemplazar todos los valores a menos que pueda guardar 
+		// puedo tener otro tipo de objetos aqui o todo debe ser desde collector? todo desde collector obvio
+		System.out.println("Nombre de Region de Album a editar: ");
+		String nomRegion = sc.nextLine();
+		System.out.println("(1) Editar numero de Pokemones \n(2) No editar numero de pokemones");
+		int entry = sc.nextInt();
+		switch (entry) {
+			case 1:
+				System.out.println("Nuevo numero de pokemones: ");
+				numPokemones = sc.nextInt();
+				break;
+		
+			case 2:
+			    numPokemones = -1; 
+				break;
+		}
+		// System.out.println("(1) Editar Pokemones \n (2) No editar pokemones");
+		// entry = sc.nextInt();
+		// switch (entry) {
+		// 	case 1:
+				
+		// 		break;
+		
+		// 	default:
+		// 		break;
+		// }
+		// okay album tiene subtipos de datos, como una lista de pokemones y un mapa ademas. Ofrezco la opcion de editarlos? 
+		//Si hago eso creo que necesito mas funciones o hacerlo todo alli re intenso system out y aza. nose
+		// que datos del album se supone que editemos, pues tiene subtipos entonces ofrecemos cambiar todas?
 	}
+
 	private void createAlbum() {
 
-		if(myCollection.hasAlbums()) {
+		if(collector.coleccion.hasAlbums()) {
 
 			System.out.println("Digite los datos del album a crear ");
 
@@ -181,7 +213,8 @@ public class PokeCollector {
 			sc.nextLine();
 			
 
-			myCollection.addAlbum(nom, num);
+			collector.addAlbum(nom, num);
+			// enum type problem
 
 			System.out.println("El album \""+ nom +"\" ha sido creado con éxito\n");
 
