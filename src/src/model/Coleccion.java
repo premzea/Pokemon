@@ -89,7 +89,21 @@ public class Coleccion{
         return salida;
     }
 
+    public String[] getAlbumNames(){
+        String [] names = new String[8];
+        for (int i = 0; i < 8; i ++){
+            if (albumes[i] != null){
+                names[i] = (albumes[i].getnomRegion()).name();
+            }
+        }
+        return names;
+    } 
+
     public void editAlbum(){
 
     }
+
+    // public boolean hasAlbums(){
+    //     return album1 == null|| album2 == null|| album3 == null;
+    // }
 }

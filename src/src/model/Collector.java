@@ -26,8 +26,10 @@ public class Collector{
         // necesito que revise cada nombre para asi decidir a que album agregarlo pero no se como hacer eso con el enum type
         Album[] albumes = coleccion.getAlbumes();
         for (int i=0; i< 8 ; i++){
-            if (albumes[i].getnomRegion() == nomRegion){
-                albumes[i].addPokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
+            if(albumes[i] != null){
+                if (albumes[i].getnomRegion() == nomRegion){
+                    albumes[i].addPokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
+                }
             }
         }
     }

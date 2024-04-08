@@ -78,15 +78,18 @@ public class Album {
     public String toString(){
         String strMapa = "null";
         String strPokemones = "null";
+        int numPokemones = 0; 
         if (mapa != null){
             strMapa = mapa.toString();
         }
-        if (pokemones != null){
+        if (!(pokemones.isEmpty())){
             for(int i = 0; i< pokemones.size(); i++){
-                strPokemones = strPokemones + pokemones.get(i).toString();
+                strPokemones = "";
+                strPokemones = strPokemones + "\nPokemon " + (i + 1) + "\n" + pokemones.get(i).toString();
+                numPokemones = pokemones.size();
             }
         }
-        String salida = "Mapa: " + strMapa + "\nRegion:"+ enumToString(nomRegion) + "\n" + "Pokemones: " + strPokemones;
+        String salida = "Mapa: " + strMapa + "\nRegion:"+ enumToString(nomRegion) + "\n" + "Numero de Pokemones: " + numPokemones + "\n" + "Pokemones: " + strPokemones;
         
         return salida;
     }
