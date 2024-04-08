@@ -14,7 +14,6 @@ public class Collector{
     }
 
 
-
     public void addAlbum(String nom, int numPokemones){
         EnumRegion nomRegion = stringToEnum(nom);
         coleccion.addAlbum(nomRegion, numPokemones);
