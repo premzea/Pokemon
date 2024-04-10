@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import model.Collector;
 // se supone que tiene que crear una coleccion 
@@ -59,7 +60,12 @@ public class PokeCollector {
 				showMenuAlbum();
 				break;
 			case 3:
-				System.out.println("\n" + collector.coleccion.showAlbum() + "\n");
+				if (collector.coleccion.getAlbumes()[0] != null) {
+					System.out.println("\n" + collector.coleccion.showAlbum() + "\n");
+				} else {
+					System.out.println("No, No, No hay albumes \n");
+				}
+				
 				break;
 
 			case 4:
@@ -73,6 +79,7 @@ public class PokeCollector {
 	}
 
 	private void createCollection() {
+		// no se puede crear mas de una coleccion
 		System.out.println("Ingrese los datos de una colección\n");
 		String nom;
 		int day, month, year;
@@ -101,10 +108,10 @@ public class PokeCollector {
 	}
 
 	private void addPokeInAlbum() {
-		String[] names = new String[8];
+		String[] names = new String[7];
 		names = collector.coleccion.getAlbumNames();
 		System.out.println("A que album desea adicionar un pokemon: ");
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (names[i] != null) {
 				System.out.println((i + 1) + " " + names[i]);
 			}
@@ -126,8 +133,18 @@ public class PokeCollector {
 				break;
 
 		}
+		ArrayList<String> pokemones = collector.coleccion.getAlbumes()[entry-1].getStrPokemones();
+		//can i add a show pokemones functionality? quiero
 		System.out.println("Nombre Pokemon: ");
 		String nomPok = sc.nextLine();
+		for(int i = 0; i<pokemones.size(); i++){
+			if(nomPok.equals(pokemones.get(i))){
+				System.out.println("Ese pokemon ya existe en el album. Agrega un nuevo pokemon.");
+				System.out.println("Nombre Pokemon: ");
+				nomPok = sc.nextLine();
+				i = pokemones.size() - 1;
+			}
+		}
 		System.out.println("Especie\n (1) ELECTRICO \n(2) FANTASMA\n (3) AGUA\n (4) VENENO ");
 		int numEsp = sc.nextInt();
 		String especie = "";
@@ -157,7 +174,7 @@ public class PokeCollector {
 		int puntosPoder = sc.nextInt();
 
 		collector.addPokemon(nom, especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nomPok);
-		// enum problem
+		// enum problems
 
 		System.out.println("\npokemon agregado exitosamente\n");
 
@@ -201,7 +218,6 @@ public class PokeCollector {
 	}
 
 	private void editAlbum() {
-		collector.coleccion.getAlbumes();
 		if (collector.coleccion.getAlbumes()[0] != null) {
 			int numPokemones = -1;
 			// okay no puedo reemplazar todos los valores a menos que pueda guardar
@@ -255,28 +271,35 @@ public class PokeCollector {
 	private void createAlbum() {
 
 		if (collector.coleccion.hasAlbums()) {
-
+			//has albums revisa que todavia le quepan albumes, max 7.
 			System.out.println("Digite los datos del album a crear ");
+			String[] albumNames = new String[7];
+			albumNames = collector.coleccion.getAlbumNames();
+			String[] regiones = new String[7];
+			regiones = collector.getRegions();
+			for(int z= 0; z<7; z++){
+				for(int i = 0; i< 7; i++){
+					if (albumNames[z] != null){
+						if(albumNames[z] == regiones[i]){
+							regiones[i] = null;
+						}
+					}
+				}
+			}
+			System.out.println("Nombre de la región del album \n");
+			for(int i = 0; i<7; i++){
+				if(regiones[i] != null){
+					System.out.println("(" + (i + 1) + ") " + regiones[i] + "\n");
+				} else {
+					i = i-1;
+				}
+				
+			}
 
-			System.out.println("Nombre de la región del album \n (1) KANTO \n(2) JOTHO \n (3) HOEN");
 			int entry = sc.nextInt();
 			sc.nextLine();
 			String nom;
-			switch (entry) {
-				case 1:
-					nom = "KANTO";
-					break;
-
-				case 2:
-					nom = "JOTHO";
-					break;
-
-				default:
-					nom = "HOEN";
-					break;
-
-			}
-
+			nom = regiones[entry - 1];
 			System.out.println("Cantidad de pokemones de la región");
 			int num = sc.nextInt();
 			sc.nextLine();
