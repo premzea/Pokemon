@@ -8,6 +8,7 @@ import model.Collector;
 public class PokeCollector {
 	private Collector collector;
 	private Scanner sc;
+	private static final int albumSize = 7;
 
 	public PokeCollector() {
 		collector = new Collector();
@@ -65,7 +66,7 @@ public class PokeCollector {
 				} else {
 					System.out.println("No, No, No hay albumes \n");
 				}
-				
+
 				break;
 
 			case 4:
@@ -108,10 +109,10 @@ public class PokeCollector {
 	}
 
 	private void addPokeInAlbum() {
-		String[] names = new String[7];
+		String[] names = new String[albumSize];
 		names = collector.coleccion.getAlbumNames();
 		System.out.println("A que album desea adicionar un pokemon: ");
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < albumSize; i++) {
 			if (names[i] != null) {
 				System.out.println((i + 1) + " " + names[i]);
 			}
@@ -133,19 +134,21 @@ public class PokeCollector {
 				break;
 
 		}
-		ArrayList<String> pokemones = collector.coleccion.getAlbumes()[entry-1].getStrPokemones();
-		//can i add a show pokemones functionality? quiero
+		ArrayList<String> pokemones = collector.coleccion.getAlbumes()[entry - 1].getStrPokemones();
+		// can i add a show pokemones functionality? quiero
 		System.out.println("Nombre Pokemon: ");
 		String nomPok = sc.nextLine();
-		for(int i = 0; i<pokemones.size(); i++){
-			if(nomPok.equals(pokemones.get(i))){
+		for (int i = 0; i < pokemones.size(); i++) {
+			if (nomPok.equals(pokemones.get(i))) {
 				System.out.println("Ese pokemon ya existe en el album. Agrega un nuevo pokemon.");
 				System.out.println("Nombre Pokemon: ");
 				nomPok = sc.nextLine();
 				i = pokemones.size() - 1;
 			}
 		}
-		System.out.println("Especie\n (1) ELECTRICO \n(2) FANTASMA\n (3) AGUA\n (4) VENENO ");
+		System.out.println("Especie\n(1) ELECTRICO \n(2)FANTASMA\n (3)AGUA\n (4)VENENO ");
+		// hacer lo mismo del enum que hice con regiones? no se si amerite pues en esta
+		// los tipos is se pueden repetir
 		int numEsp = sc.nextInt();
 		String especie = "";
 		switch (numEsp) {
@@ -220,14 +223,25 @@ public class PokeCollector {
 	private void editAlbum() {
 		if (collector.coleccion.getAlbumes()[0] != null) {
 			int numPokemones = -1;
-			// okay no puedo reemplazar todos los valores a menos que pueda guardar
-			// puedo tener otro tipo de objetos aqui o todo debe ser desde collector? todo
-			// desde collector obvio
-			System.out.println("Nombre de Region de Album a editar: ");
-			String nomRegion = sc.nextLine();
+			String[] albumNames = new String[albumSize];
+			albumNames = collector.coleccion.getAlbumNames();
+			System.out.println("Nombre de Album a editar");
+			for (int i = 0; i < albumSize; i++) {
+
+			}
+			for (int i = 0; i < albumSize; i++) {
+				if (albumNames[i] != null) {
+					System.out.println("(" + (i + 1) + ") " + albumNames[i]);
+				}
+
+			}
+			// Lo paso a solo los albues que existen? que el usuario no lo pueda cagar?
+			int entry =  sc.nextInt();
+			String nomRegion = "";
+			nomRegion = albumNames[entry-1];
 			System.out.println("(1) Editar numero de Pokemones \n(2) No editar numero de pokemones");
-			int entry = sc.nextInt();
-			switch (entry) {
+			int choice = sc.nextInt();
+			switch (choice) {
 				case 1:
 					System.out.println("Nuevo numero de pokemones: ");
 					numPokemones = sc.nextInt();
@@ -236,32 +250,11 @@ public class PokeCollector {
 				default:
 					break;
 			}
-			// System.out.println("(1) Editar Pokemones \n (2) No editar pokemones");
-			// entry = sc.nextInt();
-			// switch (entry) {
-			// case 1:
-			// break;
-			// default:
-			// break;
-			// }
-			// okay album tiene subtipos de datos, como una lista de pokemones y un mapa
-			// ademas. Ofrezco la opcion de editarlos?
-			// Si hago eso creo que necesito mas funciones o hacerlo todo alli re intenso
-			// system out y aza. nose
-			// que datos del album se supone que editemos, pues tiene subtipos entonces
-			// ofrecemos cambiar todas?
 
-			int output = collector.editAlbum(null, nomRegion, null, numPokemones);
+			collector.editAlbum(null, nomRegion, null, numPokemones);
 
-			switch (output) {
-				case 1:
-					System.out.println("La edicion fue exitosa \n");
-					break;
+			System.out.println("La edicion fue exitosa \n");
 
-				case 0:
-					System.out.println("El album a editar no existe \n");
-					break;
-			}
 		} else {
 			System.out.println("No has creado un album para editar.");
 		}
@@ -269,32 +262,33 @@ public class PokeCollector {
 	}
 
 	private void createAlbum() {
-
 		if (collector.coleccion.hasAlbums()) {
-			//has albums revisa que todavia le quepan albumes, max 7.
+			// has albums revisa que todavia le quepan albumes, max albumSize.
 			System.out.println("Digite los datos del album a crear ");
-			String[] albumNames = new String[7];
+			String[] albumNames = new String[albumSize];
 			albumNames = collector.coleccion.getAlbumNames();
-			String[] regiones = new String[7];
+			String[] regiones = new String[albumSize];
 			regiones = collector.getRegions();
-			for(int z= 0; z<7; z++){
-				for(int i = 0; i< 7; i++){
-					if (albumNames[z] != null){
-						if(albumNames[z] == regiones[i]){
+			for (int z = 0; z < albumSize; z++) {
+				if (albumNames[z] != null) {
+					for (int i = 0; i < albumSize; i++) {
+
+						if (albumNames[z] == regiones[i]) {
 							regiones[i] = null;
 						}
 					}
 				}
 			}
-			System.out.println("Nombre de la región del album \n");
-			for(int i = 0; i<7; i++){
-				if(regiones[i] != null){
-					System.out.println("(" + (i + 1) + ") " + regiones[i] + "\n");
-				} else {
-					i = i-1;
+			System.out.println("\nNombre de la región del album");
+			int z = 0;
+			for (int i = 0; i < albumSize; i++) {
+				if (regiones[i] != null) {
+					System.out.println("(" + (z + 1) + ") " + regiones[i]);
+					z = z + 1;
 				}
-				
+
 			}
+			System.out.println();
 
 			int entry = sc.nextInt();
 			sc.nextLine();

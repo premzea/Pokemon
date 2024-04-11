@@ -23,6 +23,7 @@ public class Album {
 
     public static String[] getRegions(){
         EnumRegion[] enumRegiones = new EnumRegion[7];
+        enumRegiones = EnumRegion.values();
         String[] regiones = new String[7] ;
         for(int i = 0; i<7; i++){
             regiones[i] = enumRegiones[i].name();

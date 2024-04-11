@@ -49,7 +49,7 @@ public class Collector{
         return nom.name();
     }
 
-    public int editAlbum(Mapa mapa, String nom, ArrayList <Pokemon> pokemones, int numPokemones){
+    public void editAlbum(Mapa mapa, String nom, ArrayList <Pokemon> pokemones, int numPokemones){
         EnumRegion nomRegion = stringToEnum(nom);
         Album album = new Album(mapa, nomRegion, pokemones, numPokemones);
         // enum problem
@@ -61,7 +61,7 @@ public class Collector{
                 i = 10;
             } else {
             if (albumes[i].getnomRegion() == nomRegion){
-                if(album.getMapa() == null){
+                if(album.getMapa() == null && albumes[i].getMapa() != null){
                     album.setMapa(albumes[i].getMapa()); 
                 }
                 
@@ -76,12 +76,9 @@ public class Collector{
                 }
 
                 albumes[i] = album;
-                output = 1;
                 i = 10;
             }}
         }
-        return output;
-
     }
 
     public void deleteAlbum(String nom){
