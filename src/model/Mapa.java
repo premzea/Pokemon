@@ -56,6 +56,8 @@ public class Mapa{
 
     public String toString(){
         return "Numero de Pokemones: " + numPokemones + "\nUbicacion: " + ubicacion.toString() + "\nDireccion de la Imagen: " + dirImagen  + "\nFecha de la imagen: " + fecha.toString();
-    }  
+    } 
+
+    
 
 }

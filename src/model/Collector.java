@@ -14,21 +14,25 @@ public class Collector{
     }
 
 
-
     public void addAlbum(String nom, int numPokemones){
         EnumRegion nomRegion = stringToEnum(nom);
         coleccion.addAlbum(nomRegion, numPokemones);
     }
 
+    public String[] getRegions(){
+        return  Album.getRegions();
+    }
     public void addPokemon(String nom, String esp, int puntosSalud,int puntosAtaque, int puntosPoder, int puntosDefensa, String nombre){
         Tipo especie = stringToEnumT(esp);
         EnumRegion nomRegion = stringToEnum(nom);
         // se puede agregar un pokemon en una region sin album?
         // necesito que revise cada nombre para asi decidir a que album agregarlo pero no se como hacer eso con el enum type
         Album[] albumes = coleccion.getAlbumes();
-        for (int i=0; i< 8 ; i++){
-            if (albumes[i].getnomRegion() == nomRegion){
-                albumes[i].addPokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
+        for (int i=0; i< 7 ; i++){
+            if(albumes[i] != null){
+                if (albumes[i].getnomRegion() == nomRegion){
+                    albumes[i].addPokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
+                }
             }
         }
     }
@@ -45,18 +49,19 @@ public class Collector{
         return nom.name();
     }
 
-    public int editAlbum(Mapa mapa, String nom, ArrayList <Pokemon> pokemones, int numPokemones){
+    public void editAlbum(Mapa mapa, String nom, ArrayList <Pokemon> pokemones, int numPokemones){
         EnumRegion nomRegion = stringToEnum(nom);
         Album album = new Album(mapa, nomRegion, pokemones, numPokemones);
         // enum problem
         Album[] albumes = coleccion.getAlbumes();
         int output = 0;
-        for (int i=0; i< 8 ; i++){
+        //searchAlbum
+        for (int i=0; i< 7 ; i++){
             if (albumes[i] == null){
                 i = 10;
             } else {
             if (albumes[i].getnomRegion() == nomRegion){
-                if(album.getMapa() == null){
+                if(album.getMapa() == null && albumes[i].getMapa() != null){
                     album.setMapa(albumes[i].getMapa()); 
                 }
                 
@@ -71,18 +76,15 @@ public class Collector{
                 }
 
                 albumes[i] = album;
-                output = 1;
                 i = 10;
             }}
         }
-        return output;
-
     }
 
     public void deleteAlbum(String nom){
         EnumRegion nomRegion = stringToEnum(nom);
         Album[] albumes = coleccion.getAlbumes();
-        for (int i=0; i< 8 ; i++){
+        for (int i=0; i< 7 ; i++){
             if (albumes[i].getnomRegion() == nomRegion){
                 albumes[i] = null;
                 i = 10;
@@ -95,7 +97,7 @@ public class Collector{
         EnumRegion nomRegion = stringToEnum(nom);
         Pokemon pokemon = new Pokemon(especie, puntosSalud, puntosAtaque, puntosPoder, puntosDefensa, nombre);
         Album[] albumes = coleccion.getAlbumes();
-        for (int i=0; i< 8 ; i++){
+        for (int i=0; i< 7 ; i++){
             if (albumes[i].getnomRegion() == nomRegion){
                 ArrayList <Pokemon> pokemones = albumes[i].getPokemones();
                 for (int z = 0; z < pokemones.size(); z++){
@@ -113,7 +115,7 @@ public class Collector{
     public void deletePokemon(String nom, String nombre){
         EnumRegion nomRegion = stringToEnum(nom);
         Album[] albumes = coleccion.getAlbumes();
-        for (int i=0; i< 8 ; i++){
+        for (int i=0; i< 7 ; i++){
             if (albumes[i].getnomRegion() == nomRegion){
                 ArrayList <Pokemon> pokemones = albumes[i].getPokemones();
                 for (int z = 0; z < pokemones.size(); z++){
@@ -132,7 +134,7 @@ public class Collector{
         EnumRegion nomRegion = stringToEnum(nom);
         Album[] albumes = coleccion.getAlbumes();
         Album album = null;
-        for (int i=0; i<8; i++){
+        for (int i=0; i<7; i++){
             if(albumes[i].getnomRegion() == nomRegion){
                 album = albumes[i];
                 i = 10;
@@ -141,7 +143,6 @@ public class Collector{
         return album;
     }
 
-    
 
     // cual diferencia set y add album?
 

@@ -21,6 +21,17 @@ public class Album {
         this.numPokemones = numPokemones;
     }
 
+    public static String[] getRegions(){
+        EnumRegion[] enumRegiones = new EnumRegion[7];
+        enumRegiones = EnumRegion.values();
+        String[] regiones = new String[7] ;
+        for(int i = 0; i<7; i++){
+            regiones[i] = enumRegiones[i].name();
+        }    
+
+        return regiones;
+    } 
+
     //mala practica muchos constructores?
 
     
@@ -39,6 +50,14 @@ public class Album {
 
     public ArrayList <Pokemon> getPokemones(){
         return pokemones;
+    }
+
+    public ArrayList<String> getStrPokemones(){
+        ArrayList<String> pokeNames = new ArrayList<>();
+        for(int i = 0; i < pokemones.size(); i++){
+            pokeNames.add(pokemones.get(i).getNombre());
+        }
+        return pokeNames;
     }
 
     public void setPokemones(ArrayList <Pokemon> pokemones) {
@@ -81,12 +100,14 @@ public class Album {
         if (mapa != null){
             strMapa = mapa.toString();
         }
-        if (pokemones != null){
+        if (!(pokemones.isEmpty())){
+            strPokemones = "";
             for(int i = 0; i< pokemones.size(); i++){
-                strPokemones = strPokemones + pokemones.get(i).toString();
+                strPokemones = strPokemones + "\nPokemon " + (i + 1) + "\n" + pokemones.get(i).toString();
+                //numPokemones = pokemones.size();
             }
         }
-        String salida = "Mapa: " + strMapa + "\nRegion:"+ enumToString(nomRegion) + "\n" + "Pokemones: " + strPokemones;
+        String salida = "Mapa: " + strMapa + "\nRegion:"+ enumToString(nomRegion) + "\n" + "Numero de Pokemones: " + this.numPokemones + "\n" + "Pokemones: " + strPokemones;
         
         return salida;
     }

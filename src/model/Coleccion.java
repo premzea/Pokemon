@@ -4,7 +4,7 @@ package model;
 
 public class Coleccion{
 
-    private Album[] albumes = new Album[8]; 
+    private Album[] albumes = new Album[7]; 
     private String userName;
     private Date fechaCreacion;
 
@@ -14,7 +14,6 @@ public class Coleccion{
         Date fechaCreacion = new Date(day,month,year);
         this.fechaCreacion = fechaCreacion;
     }
-    
 
 
     public Coleccion(Album[] albumes, String userName, Date fechaCreacion){
@@ -25,7 +24,7 @@ public class Coleccion{
     }
 
     public void eliminarAlbum(EnumRegion region){
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 7; i++){
             if (albumes[i].getnomRegion() == region){
                 albumes[i] = null;
             }
@@ -38,7 +37,7 @@ public class Coleccion{
 
     public boolean hasAlbums(){
         boolean value = true;
-        if (albumes[7] != null){
+        if (albumes[6] != null){
             return false;
         }
         return value;
@@ -46,8 +45,7 @@ public class Coleccion{
 
     public void addAlbum(EnumRegion nombre, int numPokemones){
         Album album = new Album(nombre, numPokemones);
-        // aqui el enum como se lo voy a pasar?
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 7; i++){
             if (albumes[i] == null){
                 albumes[i] = album;
                 i = 10;
@@ -75,12 +73,11 @@ public class Coleccion{
         this.fechaCreacion = fechaCreacion;
     }
 
-
     public String showAlbum(){
-        String salida = albumes[0].toString();
-        for(int i = 1; i< 8; i++){
+        String salida = "Album 1 \n" + albumes[0].toString();
+        for(int i = 1; i< 7; i++){
             if (albumes[i] != null){
-                salida = salida + "\n" + albumes[i].toString();
+                salida = salida + "\n" + "Album " + (i+1) + "\n" + albumes[i].toString() + "\n";
             } else {
                 i = 10;
             }
@@ -89,7 +86,36 @@ public class Coleccion{
         return salida;
     }
 
+    public String[] getAlbumNames(){
+        String [] names = new String[7];
+        for (int i = 0; i < 7; i ++){
+            if (albumes[i] != null){
+                names[i] = (albumes[i].getnomRegion()).name();
+            }
+        }
+        return names;
+    } 
+
     public void editAlbum(){
 
+    }
+
+    public String searchPokemon(String nomPok){
+        String album = "";
+        boolean encontrado = false;
+        //que si el pokemon estaen mas de una region? posible?
+        for(int i = 0; i<albumes.length - 1 && !encontrado;i++){
+            if(albumes[i] != null){
+                for(int z= 0; z<albumes[i].getPokemones().size() && !encontrado ;z++){
+                    if ((albumes[i].getPokemones().get(z).getNombre()).equals(nomPok)){
+                        album = (albumes[i].getnomRegion()).name();
+                        encontrado = true;
+                       
+                    }
+                }
+        
+            }
+            }
+            return album;
     }
 }
