@@ -6,9 +6,9 @@ import model.Collector;
 // se supone que tiene que crear una coleccion 
 
 public class PokeCollector {
-	private Collector collector;
-	private Scanner sc;
-	private static final int albumSize = 7;
+	public Collector collector;
+	public Scanner sc;
+	public static final int albumSize = 7;
 
 	public PokeCollector() {
 		collector = new Collector();
@@ -42,6 +42,7 @@ public class PokeCollector {
 						"(2) Para crear, editar o eliminar un álbum \n" +
 						"(3) Para mostrar la información de los albums en la colección \n" +
 						"(4) Para agregar un pokemon un álbum\n" +
+						"(5) Para buscar un pokemon\n" + 
 						"(0) Para salir");
 		option = sc.nextInt();
 		sc.nextLine();
@@ -73,13 +74,17 @@ public class PokeCollector {
 				addPokeInAlbum();
 				break;
 
+			case 5:
+				searchPokemon();
+				break;
+
 			default:
 				System.out.println("Error, opción no válida");
 
 		}
 	}
 
-	private void createCollection() {
+	public void createCollection() {
 		// no se puede crear mas de una coleccion
 		System.out.println("Ingrese los datos de una colección\n");
 		String nom;
@@ -108,7 +113,7 @@ public class PokeCollector {
 
 	}
 
-	private void addPokeInAlbum() {
+	public void addPokeInAlbum() {
 		String[] names = new String[albumSize];
 		names = collector.coleccion.getAlbumNames();
 		System.out.println("A que album desea adicionar un pokemon: ");
@@ -183,7 +188,7 @@ public class PokeCollector {
 
 	}
 
-	private void showMenuAlbum() {
+	public void showMenuAlbum() {
 		if (collector.coleccion == null) {
 			System.out.println("There is no collection. Create one first.");
 			createCollection();
@@ -213,14 +218,14 @@ public class PokeCollector {
 
 	}
 
-	private void deleteAlbum() {
+	public void deleteAlbum() {
 		System.out.println("Nombre de Region: ");
 		String nomRegion = sc.nextLine();
 		collector.deleteAlbum(nomRegion);
 		// enum type problem
 	}
 
-	private void editAlbum() {
+	public void editAlbum() {
 		if (collector.coleccion.getAlbumes()[0] != null) {
 			int numPokemones = -1;
 			String[] albumNames = new String[albumSize];
@@ -261,7 +266,7 @@ public class PokeCollector {
 
 	}
 
-	private void createAlbum() {
+	public void createAlbum() {
 		if (collector.coleccion.hasAlbums()) {
 			// has albums revisa que todavia le quepan albumes, max albumSize.
 			System.out.println("Digite los datos del album a crear ");
@@ -272,7 +277,6 @@ public class PokeCollector {
 			for (int z = 0; z < albumSize; z++) {
 				if (albumNames[z] != null) {
 					for (int i = 0; i < albumSize; i++) {
-
 						if (albumNames[z] == regiones[i]) {
 							regiones[i] = null;
 						}
@@ -293,19 +297,41 @@ public class PokeCollector {
 			int entry = sc.nextInt();
 			sc.nextLine();
 			String nom;
-			nom = regiones[entry - 1];
+			if(regiones[entry-1]== null){
+				nom = regiones[entry];
+			} else{
+				nom = regiones[entry - 1];
+			}
+
+			
 			System.out.println("Cantidad de pokemones de la región");
 			int num = sc.nextInt();
 			sc.nextLine();
 
 			collector.addAlbum(nom, num);
-			// enum type problem
 
-			System.out.println("El album \"" + nom + "\" ha sido creado con éxito\n");
+			System.out.println("El album " + nom + " ha sido creado con éxito\n");
 
 		} else {
 			System.out.println("No puede crearse el álbum porque se llegó al límite\n");
 		}
 
 	}
-}
+
+	public void searchPokemon(){
+
+		System.out.println("Nombre de pokemon: ");
+		String nomPok = sc.nextLine();
+		String location = collector.coleccion.searchPokemon(nomPok);
+		if (location.equals("")){
+			System.out.println("\nEl pokemon no se encontro\n");
+		} else{
+			System.out.println("\nEl pokemon " + nomPok + " esta en la region " + location +"\n");
+		}}
+
+		//hay un numero limitado de pokemones?
+
+	}
+
+	
+

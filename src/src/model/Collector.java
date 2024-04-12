@@ -143,7 +143,6 @@ public class Collector{
         return album;
     }
 
-    
 
     // cual diferencia set y add album?
 

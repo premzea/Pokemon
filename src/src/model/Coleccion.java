@@ -14,7 +14,6 @@ public class Coleccion{
         Date fechaCreacion = new Date(day,month,year);
         this.fechaCreacion = fechaCreacion;
     }
-    
 
 
     public Coleccion(Album[] albumes, String userName, Date fechaCreacion){
@@ -74,7 +73,6 @@ public class Coleccion{
         this.fechaCreacion = fechaCreacion;
     }
 
-
     public String showAlbum(){
         String salida = "Album 1 \n" + albumes[0].toString();
         for(int i = 1; i< 7; i++){
@@ -102,7 +100,22 @@ public class Coleccion{
 
     }
 
-    // public boolean hasAlbums(){
-    //     return album1 == null|| album2 == null|| album3 == null;
-    // }
+    public String searchPokemon(String nomPok){
+        String album = "";
+        boolean encontrado = false;
+        //que si el pokemon estaen mas de una region? posible?
+        for(int i = 0; i<albumes.length - 1 && !encontrado;i++){
+            if(albumes[i] != null){
+                for(int z= 0; z<albumes[i].getPokemones().size() && !encontrado ;z++){
+                    if ((albumes[i].getPokemones().get(z).getNombre()).equals(nomPok)){
+                        album = (albumes[i].getnomRegion()).name();
+                        encontrado = true;
+                       
+                    }
+                }
+        
+            }
+            }
+            return album;
+    }
 }
